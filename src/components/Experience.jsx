@@ -1,7 +1,6 @@
 import { Grid, OrbitControls } from "@react-three/drei";
-import { RigidBody } from "@react-three/rapier";
+import { BallCollider, RigidBody } from "@react-three/rapier";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
-import { Astronaut } from "./Astronaut";
 import { Demon } from "./Demon";
 
 export const Experience = () => {
@@ -23,14 +22,16 @@ export const Experience = () => {
 
   return (
     <>
-      <ambientLight intensity={5} />
+      <ambientLight intensity={1} />
+
+      <directionalLight position={[0, 10, 0]} intensity={1} castShadow />
 
       <Grid
         args={[300, 300]}
         sectionColor={"lightgray"}
         cellColor={"gray"}
-        position={[0, 5.1, 0]}
-        userData={{ camExcludeCollision: true }} // this won't be collide by camera ray
+        position={[0, 5.01, 0]}
+        userData={{ camExcludeCollision: true }}
       />
 
       <directionalLight position={[0, 0, 0]} intensity={10} castShadow />
@@ -54,6 +55,38 @@ export const Experience = () => {
           <boxGeometry />
           <meshBasicMaterial color="lightgreen" />
         </mesh>
+      </RigidBody>
+
+      <RigidBody position={[5, 5, 0]} colliders={false} mass={0.1}>
+        <mesh castShadow scale={0.5}>
+          <sphereGeometry args={[1, 32, 32]} />
+          <meshStandardMaterial color="red" />
+        </mesh>
+        <BallCollider args={[0.5]} />
+      </RigidBody>
+
+      <RigidBody position={[-5, 5, 0]} colliders={false} mass={0.1}>
+        <mesh castShadow scale={0.5}>
+          <sphereGeometry args={[1, 32, 32]} />
+          <meshStandardMaterial color="green" />
+        </mesh>
+        <BallCollider args={[0.5]} />
+      </RigidBody>
+
+      <RigidBody position={[0, 5, 5]} colliders={false} mass={0.1}>
+        <mesh castShadow scale={0.5}>
+          <sphereGeometry args={[1, 32, 32]} />
+          <meshStandardMaterial color="#0051ff" />
+        </mesh>
+        <BallCollider args={[0.5]} />
+      </RigidBody>
+
+      <RigidBody position={[0, 5, -5]} colliders={false} mass={0.1}>
+        <mesh castShadow scale={0.5}>
+          <sphereGeometry args={[1, 32, 32]} />
+          <meshStandardMaterial color="black" />
+        </mesh>
+        <BallCollider args={[0.5]} />
       </RigidBody>
     </>
   );

@@ -10,6 +10,9 @@ export function Demon(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/models/Demon.glb");
   const { actions } = useAnimations(animations, group);
+
+  console.log("Demon actions", actions);
+
   return (
     <group ref={group} {...props} dispose={null} castShadow>
       <group name="Root_Scene">
